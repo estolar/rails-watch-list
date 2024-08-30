@@ -1,0 +1,33 @@
+<h1>New List</h1>
+
+<%= form_with model: @list, local: true do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image_url %>
+    <%= form.text_field :image_url %>
+  </div>
+
+  <h2>Add Movies</h2>
+  <%= form.fields_for :bookmarks do |bookmark_form| %>
+    <div class="field">
+      <%= bookmark_form.label :movie_id, "Select a Movie" %>
+      <%= bookmark_form.collection_select :movie_id, Movie.all, :id, :title, include_blank: true %>
+    </div>
+
+    <div class="field">
+      <%= bookmark_form.label :comment %>
+      <%= bookmark_form.text_field :comment %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit 'Create List' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Lists', lists_path %>
+
